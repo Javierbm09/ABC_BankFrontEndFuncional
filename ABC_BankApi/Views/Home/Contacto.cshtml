@@ -1,0 +1,80 @@
+﻿@using ABC_BankApi.Model;
+@model Contacto
+@{
+    ViewData["Title"] = "Contacto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card" >
+    <div class="card-header">
+        @ViewBag.Accion
+    </div>
+    <div class="card-body">
+        <form asp-action="GuardarCambios" asp-controller="Home" method="post" id="form">
+            <input asp-for="Id" type="hidden"  />
+            <div class="mb-2" >
+                <label class="form-label">Nombres</label>
+                <input  type="text" class="form-control form-control-sm" asp-for="Nombres" width="100px"/>
+            </div>
+            <div class="mb-2">
+                <label class="form-label">Diercción</label>
+                <input type="text" class="form-control form-control-sm" asp-for="Direccion" />
+            </div>
+            <div class="mb-2" >
+                <label class="form-label">Fecha de nacimiento</label>
+                <input  type="text" class="form-control form-control-sm" asp-for="Fecha_Nac"/>
+            </div>
+            <div class="mb-2" >
+                <label class="form-label">Teléfono</label>
+                <input  type="text" class="form-control form-control-sm" asp-for="Telefono"/>
+            </div> 
+            
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="col-sm-3">
+                            <div class="mb-2">
+                                <img id="img_contacto" height="197" width="200" class="border rounded mx-auto d-block img-fluid" />
+                            </div>
+                            <div class="mb-2">
+                                <input class="form-control" type="file" id="fileContacto" accept="image/png, image/jpg, image/jpeg" onchange="mostrarImagen(this)" />
+                            </div>
+                        </div>
+                    </div>                    
+                </div>
+
+            </div>
+
+            <button type="submit" class="btn-success btn-sm">Guardar</button>
+            <a asp-action="Index" asp-controller="Home" class="btn btn-warning btn-sm">Regresar</a>
+        </form>
+        
+        <hr/>        
+    </div>   
+
+</div>
+
+@section scripts{
+    <script>
+        $("#form button").on("click", '.btn-success', function () 
+        {
+            var ImagenSeleccionada = $("#fileContacto")[0].files[0];
+            
+        
+        }
+        function mostrarImagen(input) {
+            if (input.files) {
+
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $("#img_contacto").attr("src", e.target.result).width(200).height(197)
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+
+        }
+    </script>
+}
+
